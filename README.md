@@ -1,28 +1,24 @@
 # VR FPS Game
 
-这是一个使用Unity开发的虚拟现实第一人称射击游戏项目。
+This is a virtual reality first-person shooter game project developed using Unity.
 
-## 项目概述
+## Project Overview
 
-本项目是一个沉浸式的VR FPS游戏，玩家可以通过虚拟现实设备体验身临其境的射击体验。游戏设计注重直观的操作和逼真的环境，旨在为玩家提供刺激的游戏体验。
+This project is an immersive VR FPS game where players can experience a realistic shooting environment through virtual reality devices. The game is designed to offer intuitive controls and realistic settings, aiming to provide an exciting gaming experience.
 
-## 使用技术
+## Technologies Used
 
 - **Unity**: 2022.3.47f1
-- **VR 支持**: SteamVR
-- **编程语言**: C#
+- **VR Support**: SteamVR
+- **Programming Language**: C#
 
-## 项目结构
+## Project Structure
 
-- **Assets/**: 包含游戏的所有资源，包括脚本、材质、模型和场景。
-- **Scripts/**: 存放游戏逻辑的C#脚本。
-- **Scenes/**: 游戏场景文件。
-- **Prefabs/**: 预制件，用于快速创建游戏对象实例。
-- **Textures/**: 游戏中使用的纹理文件。
-- **Sounds/**: 音频文件。
+- **Assets/**: Contains all game resources including scripts, materials, models, and scenes.
+- **Scripts/**: Contains C# scripts for game logic..
 
-## 安装和运行
+## Installation and Running
 
-1. **克隆项目**:
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/yourusername/vr-fps-game.git
