@@ -5,38 +5,38 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // µ¥ÀıÊµÀı
+    // å•ä¾‹å®ä¾‹
     public static GameManager Instance;
 
-    // ¶¨ÒåÓÎÏ·×´Ì¬Ã¶¾Ù
+    // å®šä¹‰æ¸¸æˆçŠ¶æ€æšä¸¾
     public enum GameState
     {
-        Menu,      // ²Ëµ¥
-        Playing,   // ÓÎÏ·½øĞĞÖĞ
-        Paused,    // ÔİÍ£
-        GameOver   // ÓÎÏ·½áÊø
+        Menu,      // èœå•
+        Playing,   // æ¸¸æˆè¿›è¡Œä¸­
+        Paused,    // æš‚åœ
+        GameOver   // æ¸¸æˆç»“æŸ
     }
 
-    // µ±Ç°ÓÎÏ·×´Ì¬
+    // å½“å‰æ¸¸æˆçŠ¶æ€
     public GameState CurrentState { get; private set; }
 
-    // ³õÊ¼»¯
+    // åˆå§‹åŒ–
     void Awake()
     {
-        // ¼ì²éÊÇ·ñÒÑÓĞÊµÀı´æÔÚ
+        // æ£€æŸ¥æ˜¯å¦å·²æœ‰å®ä¾‹å­˜åœ¨
         if (Instance == null)
         {
             Debug.Log("GameManager Instance Creating");
 
             Instance = this;
-            // ±£³ÖÔÚ³¡¾°ÇĞ»»Ê±²»Ïú»Ù
+            // ä¿æŒåœ¨åœºæ™¯åˆ‡æ¢æ—¶ä¸é”€æ¯
             DontDestroyOnLoad(gameObject);
-            // ³õÊ¼»¯ÓÎÏ·×´Ì¬Îª²Ëµ¥
+            // åˆå§‹åŒ–æ¸¸æˆçŠ¶æ€ä¸ºèœå•
             ChangeState(GameState.Menu);
         }
         else
         {
-            // Èç¹ûÒÑÓĞÊµÀı£¬Ïú»ÙĞÂ´´½¨µÄ¶ÔÏó
+            // å¦‚æœå·²æœ‰å®ä¾‹ï¼Œé”€æ¯æ–°åˆ›å»ºçš„å¯¹è±¡
             Destroy(gameObject);
         }
     }
@@ -50,31 +50,31 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ¸ù¾İµ±Ç°×´Ì¬Ö´ĞĞ²»Í¬µÄÂß¼­
+        // æ ¹æ®å½“å‰çŠ¶æ€æ‰§è¡Œä¸åŒçš„é€»è¾‘
         switch (CurrentState)
         {
             case GameState.Playing:
-                // ÓÎÏ·½øĞĞÖĞµÄÂß¼­
+                // æ¸¸æˆè¿›è¡Œä¸­çš„é€»è¾‘
                 break;
             case GameState.Paused:
-                // ÔİÍ£ÖĞµÄÂß¼­
+                // æš‚åœä¸­çš„é€»è¾‘
                 break;
             case GameState.Menu:
-                // ²Ëµ¥ÖĞµÄÂß¼­
+                // èœå•ä¸­çš„é€»è¾‘
                 break;
             case GameState.GameOver:
-                // ÓÎÏ·½áÊøµÄÂß¼­
+                // æ¸¸æˆç»“æŸçš„é€»è¾‘
                 break;
         }
     }
 
-    // °´Ãû×ÖÔØÈë³¡¾°
+    // æŒ‰åå­—è½½å…¥åœºæ™¯
     public void LoadSceneByName(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
-    // ¸Ä±äÓÎÏ·×´Ì¬µÄ·½·¨
+    // æ”¹å˜æ¸¸æˆçŠ¶æ€çš„æ–¹æ³•
     public void ChangeState(GameState newState)
     {
         CurrentState = newState;
@@ -83,33 +83,33 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case GameState.Menu:
-                // ½øÈë²Ëµ¥×´Ì¬Ê±µÄÂß¼­
-                Time.timeScale = 1f; // È·±£ÓÎÏ·Ê±¼äÁ÷ÊÅÕı³£
+                // è¿›å…¥èœå•çŠ¶æ€æ—¶çš„é€»è¾‘
+                Time.timeScale = 1f; // ç¡®ä¿æ¸¸æˆæ—¶é—´æµé€æ­£å¸¸
                 break;
             case GameState.Playing:
-                // ½øÈëÓÎÏ·½øĞĞÖĞ×´Ì¬Ê±µÄÂß¼­
-                Time.timeScale = 1f; // È·±£ÓÎÏ·Ê±¼äÁ÷ÊÅÕı³£
+                // è¿›å…¥æ¸¸æˆè¿›è¡Œä¸­çŠ¶æ€æ—¶çš„é€»è¾‘
+                Time.timeScale = 1f; // ç¡®ä¿æ¸¸æˆæ—¶é—´æµé€æ­£å¸¸
                 break;
             case GameState.Paused:
-                // ½øÈëÔİÍ£×´Ì¬Ê±µÄÂß¼­
-                Time.timeScale = 0f; // ÔİÍ£ÓÎÏ·Ê±¼ä
+                // è¿›å…¥æš‚åœçŠ¶æ€æ—¶çš„é€»è¾‘
+                Time.timeScale = 0f; // æš‚åœæ¸¸æˆæ—¶é—´
                 break;
             case GameState.GameOver:
-                // ½øÈëÓÎÏ·½áÊø×´Ì¬Ê±µÄÂß¼­
-                Time.timeScale = 0f; // ÔİÍ£ÓÎÏ·Ê±¼ä
+                // è¿›å…¥æ¸¸æˆç»“æŸçŠ¶æ€æ—¶çš„é€»è¾‘
+                Time.timeScale = 0f; // æš‚åœæ¸¸æˆæ—¶é—´
                 break;
         }
     }
 
-    // ÍË³öÓÎÏ·µÄ·½·¨
+    // é€€å‡ºæ¸¸æˆçš„æ–¹æ³•
     public void QuitGame()
     {
         Debug.Log("Quit Game");
         #if UNITY_EDITOR
-        // ÔÚ±à¼­Æ÷ÖĞÍ£Ö¹²¥·Å
+        // åœ¨ç¼–è¾‘å™¨ä¸­åœæ­¢æ’­æ”¾
         UnityEditor.EditorApplication.isPlaying = false;
         #else
-        // ÔÚ¹¹½¨µÄÓÎÏ·ÖĞÍË³ö
+        // åœ¨æ„å»ºçš„æ¸¸æˆä¸­é€€å‡º
         Application.Quit();
         #endif
     }
