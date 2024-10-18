@@ -4,7 +4,22 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Launcher.unity
+    guid: 1960ea4dc7d47ca4eb595eefb03baaf7
+  - enabled: 1
+    path: Assets/Scenes/Waiting Room for 1.unity
+    guid: d0af02af6a857064288f116a699587c7
+  - enabled: 1
+    path: Assets/Scenes/Waiting Room for 2.unity
+    guid: da5cd610882b339489c5887eedd1d565
+  - enabled: 1
+    path: Assets/Scenes/Waiting Room for 3.unity
+    guid: db0612eeac588744fbbf6e5677897dfc
+  - enabled: 1
+    path: Assets/Scenes/Waiting Room for 4.unity
+    guid: 27a03371cfb644441bb738382ad870cf
   m_configObjects:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 886095b7cba6a064da5957b3d20f3e65, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 0606158a36af70d4fa5176c8b1f6173b, type: 2}
