@@ -97,7 +97,7 @@ namespace Com.GroupCharlie.FPS
             {
                 Debug.Log("Now loading 'Waiting Room'");
 
-                PhotonNetwork.LoadLevel("Waiting Room");
+                PhotonNetwork.LoadLevel("Level 1");
             }
         }
 
