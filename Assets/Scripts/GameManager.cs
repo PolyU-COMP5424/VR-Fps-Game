@@ -2,115 +2,103 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class GameManager : MonoBehaviour
+namespace Com.GroupCharlie.FPS
 {
-    // 单例实例
-    public static GameManager Instance;
-
-    // 定义游戏状态枚举
-    public enum GameState
+    public class GameManager : MonoBehaviourPunCallbacks
     {
-        Menu,      // 菜单
-        Playing,   // 游戏进行中
-        Paused,    // 暂停
-        GameOver   // 游戏结束
-    }
+        #region Public Fields
 
-    // 当前游戏状态
-    public GameState CurrentState { get; private set; }
+        public static GameManager Instance;
 
-    // 初始化
-    void Awake()
-    {
-        // 检查是否已有实例存在
-        if (Instance == null)
+        #endregion
+
+        #region MonoBehaviour CallBacks
+
+        void Start()
         {
-            Debug.Log("GameManager Instance Creating");
-
             Instance = this;
-            // 保持在场景切换时不销毁
-            DontDestroyOnLoad(gameObject);
-            // 初始化游戏状态为菜单
-            ChangeState(GameState.Menu);
         }
-        else
+
+        #endregion
+
+        #region Photon Callbacks
+
+        /// <summary>
+        /// 当本机玩家离开房间时调用，加载 Launcher 场景
+        /// </summary>
+        public override void OnLeftRoom()
         {
-            // 如果已有实例，销毁新创建的对象
-            Destroy(gameObject);
+            Debug.Log("GameManager: OnLeftRoom() was called");
+
+            SceneManager.LoadScene(0);
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // 根据当前状态执行不同的逻辑
-        switch (CurrentState)
+        /// <summary>
+        /// 当其他玩家进入房间时调用。加载游戏场景以适应游戏人数。
+        /// </summary>
+        public override void OnPlayerEnteredRoom(Player other)
         {
-            case GameState.Playing:
-                // 游戏进行中的逻辑
-                break;
-            case GameState.Paused:
-                // 暂停中的逻辑
-                break;
-            case GameState.Menu:
-                // 菜单中的逻辑
-                break;
-            case GameState.GameOver:
-                // 游戏结束的逻辑
-                break;
+            // Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
+
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
+
+                // LoadArena();
+            }
         }
-    }
 
-    // 按名字载入场景
-    public void LoadSceneByName(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    // 改变游戏状态的方法
-    public void ChangeState(GameState newState)
-    {
-        CurrentState = newState;
-        Debug.Log("GameState Changed: " + newState);
-
-        switch (newState)
+        /// <summary>
+        /// 当其他玩家离开房间时调用。加载游戏场景以适应游戏人数。
+        /// </summary>
+        public override void OnPlayerLeftRoom(Player other)
         {
-            case GameState.Menu:
-                // 进入菜单状态时的逻辑
-                Time.timeScale = 1f; // 确保游戏时间流逝正常
-                break;
-            case GameState.Playing:
-                // 进入游戏进行中状态时的逻辑
-                Time.timeScale = 1f; // 确保游戏时间流逝正常
-                break;
-            case GameState.Paused:
-                // 进入暂停状态时的逻辑
-                Time.timeScale = 0f; // 暂停游戏时间
-                break;
-            case GameState.GameOver:
-                // 进入游戏结束状态时的逻辑
-                Time.timeScale = 0f; // 暂停游戏时间
-                break;
-        }
-    }
+            // Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
 
-    // 退出游戏的方法
-    public void QuitGame()
-    {
-        Debug.Log("Quit Game");
-        #if UNITY_EDITOR
-        // 在编辑器中停止播放
-        UnityEditor.EditorApplication.isPlaying = false;
-        #else
-        // 在构建的游戏中退出
-        Application.Quit();
-        #endif
+            if (PhotonNetwork.IsMasterClient)
+            {
+                Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
+
+                // LoadArena();
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// 离开房间
+        /// </summary>
+        public void LeaveRoom()
+        {
+            Debug.Log("GameManager: LeaveRoom() was called");
+
+            PhotonNetwork.LeaveRoom();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// 只有主机可以加载游戏场景
+        /// </summary>
+        void LoadArena()
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
+                return;
+            }
+            Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
+            PhotonNetwork.LoadLevel("Waiting Room for " + PhotonNetwork.CurrentRoom.PlayerCount);
+        }
+
+        #endregion
     }
 }
