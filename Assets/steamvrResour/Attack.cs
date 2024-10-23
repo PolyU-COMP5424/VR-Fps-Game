@@ -7,10 +7,10 @@ using static Valve.VR.InteractionSystem.Hand;
 
 public class Attack : Throwable
 { 
-    public SteamVR_Action_Boolean ¼ñ¶ª°´¼ü°ó¶¨;
-    public SteamVR_Action_Boolean ¿ª»ğ°´¼ü°ó¶¨;
-    public SteamVR_Action_Boolean ÖØ×°°´¼ü°ó¶¨;
-    public ²½Ç¹ÎäÆ÷ gun;
+    public SteamVR_Action_Boolean æ¡ä¸¢æŒ‰é”®ç»‘å®š;
+    public SteamVR_Action_Boolean å¼€ç«æŒ‰é”®ç»‘å®š;
+    public SteamVR_Action_Boolean é‡è£…æŒ‰é”®ç»‘å®š;
+    public æ­¥æªæ­¦å™¨ gun;
   
     public Animator animator;
     private void Start()
@@ -21,16 +21,16 @@ public class Attack : Throwable
     {
         //base.HandAttachedUpdate(hand);
       
-        if (¼ñ¶ª°´¼ü°ó¶¨.GetStateDown(SteamVR_Input_Sources.Any))
+        if (æ¡ä¸¢æŒ‰é”®ç»‘å®š.GetStateDown(SteamVR_Input_Sources.Any))
         {
             hand.DetachObject(this.gameObject, true);
         }
-        if(¿ª»ğ°´¼ü°ó¶¨.GetState(SteamVR_Input_Sources.Any))
+        if(å¼€ç«æŒ‰é”®ç»‘å®š.GetState(SteamVR_Input_Sources.Any))
         {
            
             gun.Fire();
         }
-        if(ÖØ×°°´¼ü°ó¶¨.GetStateDown(SteamVR_Input_Sources.Any))
+        if(é‡è£…æŒ‰é”®ç»‘å®š.GetStateDown(SteamVR_Input_Sources.Any))
         {
             animator.SetTrigger("HuanDan");
             gun.Reload();

@@ -2,130 +2,130 @@ using UnityEngine;
 
 public class GunSystem : MonoBehaviour
 {
-    // ÎäÆ÷ÊôĞÔ
-    public int damage; // ÎäÆ÷ÉËº¦
-    public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots; // Éä»÷¼ä¸ô¡¢É¢Éä¡¢Éä³Ì¡¢ÖØ×°Ê±¼ä¡¢Ã¿´ÎÉä»÷¼ä¸ô
-    public int bulletsLeft, magazineSize, bulletsPerTap, currentAmmo, maxAmmoSize; // Ê£Óà×Óµ¯¡¢µ¯Ï»ÈİÁ¿¡¢Ã¿´Î·¢ÉäµÄ×Óµ¯Êı¡¢µ±Ç°µ¯Ò©¡¢×î´óµ¯Ò©ÈİÁ¿
-    public bool allowButtonHold; // ÊÇ·ñÔÊĞí°´×¡Éä»÷
-    int bulletsShot; // µ±Ç°Éä»÷µÄ×Óµ¯ÊıÁ¿
+    // æ­¦å™¨å±æ€§
+    public int damage; // æ­¦å™¨ä¼¤å®³
+    public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots; // å°„å‡»é—´éš”ã€æ•£å°„ã€å°„ç¨‹ã€é‡è£…æ—¶é—´ã€æ¯æ¬¡å°„å‡»é—´éš”
+    public int bulletsLeft, magazineSize, bulletsPerTap, currentAmmo, maxAmmoSize; // å‰©ä½™å­å¼¹ã€å¼¹åŒ£å®¹é‡ã€æ¯æ¬¡å‘å°„çš„å­å¼¹æ•°ã€å½“å‰å¼¹è¯ã€æœ€å¤§å¼¹è¯å®¹é‡
+    public bool allowButtonHold; // æ˜¯å¦å…è®¸æŒ‰ä½å°„å‡»
+    int bulletsShot; // å½“å‰å°„å‡»çš„å­å¼¹æ•°é‡
 
-    // ²¼¶ûÖµ 
-    bool shooting, readyToShoot, reloading; // Éä»÷×´Ì¬¡¢ÊÇ·ñ×¼±¸ºÃÉä»÷¡¢ÊÇ·ñÕıÔÚÖØ×°
+    // å¸ƒå°”å€¼ 
+    bool shooting, readyToShoot, reloading; // å°„å‡»çŠ¶æ€ã€æ˜¯å¦å‡†å¤‡å¥½å°„å‡»ã€æ˜¯å¦æ­£åœ¨é‡è£…
 
-    // ²Î¿¼±äÁ¿
-    public Transform attackPoint; // ¹¥»÷µã
-    public RaycastHit rayHit; // ÉäÏßÅö×²ĞÅÏ¢
-    public LayerMask whatIsEnemy; // µĞÈËµÄ²ã
+    // å‚è€ƒå˜é‡
+    public Transform attackPoint; // æ”»å‡»ç‚¹
+    public RaycastHit rayHit; // å°„çº¿ç¢°æ’ä¿¡æ¯
+    public LayerMask whatIsEnemy; // æ•Œäººçš„å±‚
 
-    // Í¼ĞÎĞ§¹û
-    public GameObject muzzleFlash, bulletHoleGraphic; // »ğÑæĞ§¹ûºÍ×Óµ¯¿×Í¼ĞÎ
+    // å›¾å½¢æ•ˆæœ
+    public GameObject muzzleFlash, bulletHoleGraphic; // ç«ç„°æ•ˆæœå’Œå­å¼¹å­”å›¾å½¢
 
     private void Awake()
     {
-        readyToShoot = true; // ³õÊ¼»¯Îª×¼±¸ºÃÉä»÷
+        readyToShoot = true; // åˆå§‹åŒ–ä¸ºå‡†å¤‡å¥½å°„å‡»
     }
 
     private void Update()
     {
-        MyInput(); // ´¦ÀíÊäÈë
+        MyInput(); // å¤„ç†è¾“å…¥
 
-        // ¸üĞÂµ¯Ò©ÊıÁ¿ÎÄ±¾£¨Èç¹ûÓĞĞèÒªµÄ»°£¬¿ÉÒÔÌí¼Ó UI ×é¼ş£©
-        // text.SetText("Ammo: " + bulletsLeft + " / " + magazineSize); // ¸üĞÂµ¯Ò©ÊıÁ¿ÎÄ±¾
+        // æ›´æ–°å¼¹è¯æ•°é‡æ–‡æœ¬ï¼ˆå¦‚æœæœ‰éœ€è¦çš„è¯ï¼Œå¯ä»¥æ·»åŠ  UI ç»„ä»¶ï¼‰
+        // text.SetText("Ammo: " + bulletsLeft + " / " + magazineSize); // æ›´æ–°å¼¹è¯æ•°é‡æ–‡æœ¬
     }
 
     private void MyInput()
     {
-        // ¸ù¾İÉèÖÃÈ·¶¨Éä»÷ÊäÈë
-        if (allowButtonHold) shooting = Input.GetButton("Fire1"); // °´×¡Éä»÷
-        else shooting = Input.GetButtonDown("Fire1"); // µã»÷Éä»÷
+        // æ ¹æ®è®¾ç½®ç¡®å®šå°„å‡»è¾“å…¥
+        if (allowButtonHold) shooting = Input.GetButton("Fire1"); // æŒ‰ä½å°„å‡»
+        else shooting = Input.GetButtonDown("Fire1"); // ç‚¹å‡»å°„å‡»
 
-        // ÖØ×°ÊäÈë
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) Reload(); // °´R¼üÖØ×°
+        // é‡è£…è¾“å…¥
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) Reload(); // æŒ‰Ré”®é‡è£…
 
-        // Éä»÷
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0) // Èç¹û×¼±¸ºÃÉä»÷²¢ÇÒÂú×ãÌõ¼ş
+        // å°„å‡»
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0) // å¦‚æœå‡†å¤‡å¥½å°„å‡»å¹¶ä¸”æ»¡è¶³æ¡ä»¶
         {
-            bulletsShot = bulletsPerTap; // ÉèÖÃµ±Ç°Éä»÷µÄ×Óµ¯ÊıÁ¿
-            Shoot_(); // Ö´ĞĞÉä»÷
+            bulletsShot = bulletsPerTap; // è®¾ç½®å½“å‰å°„å‡»çš„å­å¼¹æ•°é‡
+            Shoot_(); // æ‰§è¡Œå°„å‡»
         }
     }
 
-    public void ·¢Éä()
+    public void å‘å°„()
     {
-        // Éä»÷
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0) // Èç¹û×¼±¸ºÃÉä»÷²¢ÇÒÂú×ãÌõ¼ş
+        // å°„å‡»
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0) // å¦‚æœå‡†å¤‡å¥½å°„å‡»å¹¶ä¸”æ»¡è¶³æ¡ä»¶
         {
-            bulletsShot = bulletsPerTap; // ÉèÖÃµ±Ç°Éä»÷µÄ×Óµ¯ÊıÁ¿
-            Shoot_(); // Ö´ĞĞÉä»÷
+            bulletsShot = bulletsPerTap; // è®¾ç½®å½“å‰å°„å‡»çš„å­å¼¹æ•°é‡
+            Shoot_(); // æ‰§è¡Œå°„å‡»
         }
     }
-    public void ×°µ¯()
+    public void è£…å¼¹()
     {
-        if (bulletsLeft < magazineSize && !reloading) Reload(); // °´R¼üÖØ×°
+        if (bulletsLeft < magazineSize && !reloading) Reload(); // æŒ‰Ré”®é‡è£…
     }
     private void Shoot_()
     {
-        readyToShoot = false; // ÉèÖÃÎª²»×¼±¸Éä»÷
+        readyToShoot = false; // è®¾ç½®ä¸ºä¸å‡†å¤‡å°„å‡»
 
-        // ¼ÆËãÉ¢Éä
+        // è®¡ç®—æ•£å°„
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
 
-        // ¼ÆËã´øÓĞÉ¢ÉäµÄ·½Ïò
-        Vector3 direction = attackPoint.forward + new Vector3(x, y, 0); // Ê¹ÓÃ¹¥»÷µãµÄÇ°Ïò·½Ïò¼ÓÉÏÉ¢Éä
+        // è®¡ç®—å¸¦æœ‰æ•£å°„çš„æ–¹å‘
+        Vector3 direction = attackPoint.forward + new Vector3(x, y, 0); // ä½¿ç”¨æ”»å‡»ç‚¹çš„å‰å‘æ–¹å‘åŠ ä¸Šæ•£å°„
 
-        // ÉäÏß¼ì²â
-        if (Physics.Raycast(attackPoint.position, direction, out rayHit, range, whatIsEnemy)) // ´Ó¹¥»÷µãÎ»ÖÃ·¢ÉäÉäÏß
+        // å°„çº¿æ£€æµ‹
+        if (Physics.Raycast(attackPoint.position, direction, out rayHit, range, whatIsEnemy)) // ä»æ”»å‡»ç‚¹ä½ç½®å‘å°„å°„çº¿
         {
-            Debug.Log(rayHit.collider.name); // ´òÓ¡Åö×²ÌåÃû³Æ
+            Debug.Log(rayHit.collider.name); // æ‰“å°ç¢°æ’ä½“åç§°
 
-            // Èç¹ûÅö×²ÌåÊÇµĞÈË£¬ÔòÔì³ÉÉËº¦
+            // å¦‚æœç¢°æ’ä½“æ˜¯æ•Œäººï¼Œåˆ™é€ æˆä¼¤å®³
             if (rayHit.collider.CompareTag("Enemy"))
-                rayHit.collider.GetComponent<EnemyDamage>().TakeDamage(damage); // ¶ÔµĞÈËÔì³ÉÉËº¦
+                rayHit.collider.GetComponent<EnemyDamage>().TakeDamage(damage); // å¯¹æ•Œäººé€ æˆä¼¤å®³
 
-            Zombie1 zombie1 = rayHit.collider.GetComponent<Zombie1>(); // »ñÈ¡Åö×²ÌåÉÏµÄ Zombie1 ×é¼ş
-            if (zombie1 != null) // ¼ì²éÊÇ·ñÊÇ Zombie1
+            Zombie1 zombie1 = rayHit.collider.GetComponent<Zombie1>(); // è·å–ç¢°æ’ä½“ä¸Šçš„ Zombie1 ç»„ä»¶
+            if (zombie1 != null) // æ£€æŸ¥æ˜¯å¦æ˜¯ Zombie1
             {
-                zombie1.zombieHitDamage(damage); // ¶Ô½©Ê¬Ôì³ÉÉËº¦
+                zombie1.zombieHitDamage(damage); // å¯¹åƒµå°¸é€ æˆä¼¤å®³
             }
         }
         if(rayHit.point==Vector3.zero)rayHit.point = new Vector3(999,999,999);
-        // Í¼ĞÎĞ§¹û
-        GameObject impact = Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0)); // ´´½¨×Óµ¯¿×Í¼ĞÎ
-        GameObject muzzle = Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity); // ´´½¨»ğÑæĞ§¹û
-        Destroy(impact, 1f); // 1ÃëºóÏú»Ù×Óµ¯¿×
-        Destroy(muzzle, 1f); // 1ÃëºóÏú»Ù»ğÑæĞ§¹û
+        // å›¾å½¢æ•ˆæœ
+        GameObject impact = Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0)); // åˆ›å»ºå­å¼¹å­”å›¾å½¢
+        GameObject muzzle = Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity); // åˆ›å»ºç«ç„°æ•ˆæœ
+        Destroy(impact, 1f); // 1ç§’åé”€æ¯å­å¼¹å­”
+        Destroy(muzzle, 1f); // 1ç§’åé”€æ¯ç«ç„°æ•ˆæœ
 
-        bulletsLeft--; // ¼õÉÙÊ£Óà×Óµ¯
-        bulletsShot--; // ¼õÉÙµ±Ç°Éä»÷µÄ×Óµ¯ÊıÁ¿
+        bulletsLeft--; // å‡å°‘å‰©ä½™å­å¼¹
+        bulletsShot--; // å‡å°‘å½“å‰å°„å‡»çš„å­å¼¹æ•°é‡
 
-        Invoke("ResetShot", timeBetweenShooting); // ÑÓ³Ùµ÷ÓÃÖØÖÃÉä»÷×´Ì¬µÄ·½·¨
+        Invoke("ResetShot", timeBetweenShooting); // å»¶è¿Ÿè°ƒç”¨é‡ç½®å°„å‡»çŠ¶æ€çš„æ–¹æ³•
 
-        if (bulletsShot > 0 && bulletsLeft > 0) // Èç¹û»¹ÓĞ×Óµ¯´ıÉä»÷ÇÒÊ£Óà×Óµ¯´óÓÚ0
-            Invoke("Shoot", timeBetweenShots); // ÑÓ³ÙÔÙ´ÎÉä»÷
+        if (bulletsShot > 0 && bulletsLeft > 0) // å¦‚æœè¿˜æœ‰å­å¼¹å¾…å°„å‡»ä¸”å‰©ä½™å­å¼¹å¤§äº0
+            Invoke("Shoot", timeBetweenShots); // å»¶è¿Ÿå†æ¬¡å°„å‡»
     }
 
     private void ResetShot()
     {
-        readyToShoot = true; // ÖØÖÃÉä»÷×´Ì¬Îª×¼±¸ºÃ
+        readyToShoot = true; // é‡ç½®å°„å‡»çŠ¶æ€ä¸ºå‡†å¤‡å¥½
     }
 
     private void Reload()
     {
-        reloading = true; // ÉèÖÃÎªÕıÔÚÖØ×°
-        Invoke("ReloadFinished", reloadTime); // ÑÓ³Ùµ÷ÓÃÖØ×°Íê³ÉµÄ·½·¨
+        reloading = true; // è®¾ç½®ä¸ºæ­£åœ¨é‡è£…
+        Invoke("ReloadFinished", reloadTime); // å»¶è¿Ÿè°ƒç”¨é‡è£…å®Œæˆçš„æ–¹æ³•
     }
 
     private void ReloadFinished()
     {
-        // ÖØ×°Âß¼­
-        bulletsLeft = magazineSize; // ½«Ê£Óà×Óµ¯ÊıÉèÖÃÎªµ¯Ï»ÈİÁ¿
-        reloading = false; // ÖØ×°Íê³É
+        // é‡è£…é€»è¾‘
+        bulletsLeft = magazineSize; // å°†å‰©ä½™å­å¼¹æ•°è®¾ç½®ä¸ºå¼¹åŒ£å®¹é‡
+        reloading = false; // é‡è£…å®Œæˆ
     }
 
     public void AddAmmo(int x)
     {
-        // Ìí¼Óµ¯Ò©Âß¼­
-        // currentAmmo += x; // ÕâÀï¿ÉÒÔÌí¼Ó¾ßÌåÊµÏÖ
+        // æ·»åŠ å¼¹è¯é€»è¾‘
+        // currentAmmo += x; // è¿™é‡Œå¯ä»¥æ·»åŠ å…·ä½“å®ç°
     }
 }
