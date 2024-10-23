@@ -20,6 +20,9 @@ namespace Com.GroupCharlie.FPS
         [SerializeField]
         private GameObject teamPanel;
 
+        [SerializeField]
+        private GameObject vrPlayer;
+
         // 房间最大玩家数
         [SerializeField]
         private byte maxPlayersPerRoom = 4;
@@ -95,7 +98,9 @@ namespace Com.GroupCharlie.FPS
             // 只有在我们是第一个玩家时才加载，否则依赖于`PhotonNetwork.AutomaticallySyncScene`来同步加载
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
-                Debug.Log("Now loading 'Waiting Room'");
+                Debug.Log("Now loading 'Level'");
+
+                vrPlayer.SetActive(false);
 
                 PhotonNetwork.LoadLevel("Level 1");
             }
