@@ -2,7 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-namespace Com.GroupCharlie.Network
+namespace Com.GroupCharlie.FPS
 {
     public class Launcher : MonoBehaviourPunCallbacks
     {
@@ -93,9 +93,9 @@ namespace Com.GroupCharlie.Network
             // 只有在我们是第一个玩家时才加载，否则依赖于`PhotonNetwork.AutomaticallySyncScene`来同步加载
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
-                Debug.Log("Now loading 'Waiting Room for 1'");
+                Debug.Log("Now loading 'Waiting Room'");
 
-                PhotonNetwork.LoadLevel("Waiting Room for 1");
+                PhotonNetwork.LoadLevel("Waiting Room");
             }
         }
 

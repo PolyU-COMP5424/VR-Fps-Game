@@ -2,9 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
-using Photon.Pun.Demo.PunBasics;
 
-namespace Com.GroupCharlie.Network
+namespace Com.GroupCharlie.FPS
 {
     public class GameManager : MonoBehaviourPunCallbacks
     {
@@ -47,7 +46,7 @@ namespace Com.GroupCharlie.Network
             {
                 Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
 
-                LoadArena();
+                // LoadArena();
             }
         }
 
@@ -62,7 +61,7 @@ namespace Com.GroupCharlie.Network
             {
                 Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
 
-                LoadArena();
+                // LoadArena();
             }
         }
 
