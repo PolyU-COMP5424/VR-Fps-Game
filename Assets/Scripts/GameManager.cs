@@ -2,118 +2,104 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class GameManager : MonoBehaviour
+namespace Com.GroupCharlie.FPS
 {
-    // µ¥ÀıÊµÀı
-    public static GameManager Instance;
-
-    // ¶¨ÒåÓÎÏ·×´Ì¬Ã¶¾Ù
-    public enum GameState
+    public class GameManager : MonoBehaviourPunCallbacks
     {
-        Menu,      // ²Ëµ¥
-        Playing,   // ÓÎÏ·½øĞĞÖĞ
-        Paused,    // ÔİÍ£
-        GameOver   // ÓÎÏ·½áÊø
-    }
+        #region Public Fields
 
-    public int mapID;
-    public int agentID;
+        public static GameManager Instance;
 
-    // µ±Ç°ÓÎÏ·×´Ì¬
-    public GameState CurrentState { get; private set; }
+        #endregion
 
-    // ³õÊ¼»¯
-    void Awake()
-    {
-        // ¼ì²éÊÇ·ñÒÑÓĞÊµÀı´æÔÚ
-        if (Instance == null)
+        #region MonoBehaviour CallBacks
+
+        void Start()
         {
-            Debug.Log("GameManager Instance Creating");
-
             Instance = this;
-            // ±£³ÖÔÚ³¡¾°ÇĞ»»Ê±²»Ïú»Ù
-            DontDestroyOnLoad(gameObject);
-            // ³õÊ¼»¯ÓÎÏ·×´Ì¬Îª²Ëµ¥
-            ChangeState(GameState.Menu);
         }
-        else
+
+        #endregion
+
+        #region Photon Callbacks
+
+        /// <summary>
+        /// å½“æœ¬æœºç©å®¶ç¦»å¼€æˆ¿é—´æ—¶è°ƒç”¨ï¼ŒåŠ è½½ Launcher åœºæ™¯
+        /// </summary>
+        public override void OnLeftRoom()
         {
-            // Èç¹ûÒÑÓĞÊµÀı£¬Ïú»ÙĞÂ´´½¨µÄ¶ÔÏó
-            Destroy(gameObject);
+            Debug.Log("GameManager: OnLeftRoom() was called");
+
+            SceneManager.LoadScene(0);
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // ¸ù¾İµ±Ç°×´Ì¬Ö´ĞĞ²»Í¬µÄÂß¼­
-        switch (CurrentState)
+        /// <summary>
+        /// å½“å…¶ä»–ç©å®¶è¿›å…¥æˆ¿é—´æ—¶è°ƒç”¨ã€‚åŠ è½½æ¸¸æˆåœºæ™¯ä»¥é€‚åº”æ¸¸æˆäººæ•°ã€‚
+        /// </summary>
+        public override void OnPlayerEnteredRoom(Player other)
         {
-            case GameState.Playing:
-                // ÓÎÏ·½øĞĞÖĞµÄÂß¼­
-                break;
-            case GameState.Paused:
-                // ÔİÍ£ÖĞµÄÂß¼­
-                break;
-            case GameState.Menu:
-                // ²Ëµ¥ÖĞµÄÂß¼­
-                break;
-            case GameState.GameOver:
-                // ÓÎÏ·½áÊøµÄÂß¼­
-                break;
+            // Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
+
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
+
+                // LoadArena();
+            }
         }
-    }
 
-    // °´Ãû×ÖÔØÈë³¡¾°
-    public void LoadSceneByName(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    // ¸Ä±äÓÎÏ·×´Ì¬µÄ·½·¨
-    public void ChangeState(GameState newState)
-    {
-        CurrentState = newState;
-        Debug.Log("GameState Changed: " + newState);
-
-        switch (newState)
+        /// <summary>
+        /// å½“å…¶ä»–ç©å®¶ç¦»å¼€æˆ¿é—´æ—¶è°ƒç”¨ã€‚åŠ è½½æ¸¸æˆåœºæ™¯ä»¥é€‚åº”æ¸¸æˆäººæ•°ã€‚
+        /// </summary>
+        public override void OnPlayerLeftRoom(Player other)
         {
-            case GameState.Menu:
-                // ½øÈë²Ëµ¥×´Ì¬Ê±µÄÂß¼­
-                Time.timeScale = 1f; // È·±£ÓÎÏ·Ê±¼äÁ÷ÊÅÕı³£
-                break;
-            case GameState.Playing:
-                // ½øÈëÓÎÏ·½øĞĞÖĞ×´Ì¬Ê±µÄÂß¼­
-                Time.timeScale = 1f; // È·±£ÓÎÏ·Ê±¼äÁ÷ÊÅÕı³£
-                break;
-            case GameState.Paused:
-                // ½øÈëÔİÍ£×´Ì¬Ê±µÄÂß¼­
-                Time.timeScale = 0f; // ÔİÍ£ÓÎÏ·Ê±¼ä
-                break;
-            case GameState.GameOver:
-                // ½øÈëÓÎÏ·½áÊø×´Ì¬Ê±µÄÂß¼­
-                Time.timeScale = 0f; // ÔİÍ£ÓÎÏ·Ê±¼ä
-                break;
-        }
-    }
+            // Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
 
-    // ÍË³öÓÎÏ·µÄ·½·¨
-    public void QuitGame()
-    {
-        Debug.Log("Quit Game");
-#if UNITY_EDITOR
-        // ÔÚ±à¼­Æ÷ÖĞÍ£Ö¹²¥·Å
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        // ÔÚ¹¹½¨µÄÓÎÏ·ÖĞÍË³ö
-        Application.Quit();
-#endif
+            if (PhotonNetwork.IsMasterClient)
+            {
+                Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
+
+                // LoadArena();
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// ç¦»å¼€æˆ¿é—´
+        /// </summary>
+        public void LeaveRoom()
+        {
+            Debug.Log("GameManager: LeaveRoom() was called");
+
+            PhotonNetwork.LeaveRoom();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// åªæœ‰ä¸»æœºå¯ä»¥åŠ è½½æ¸¸æˆåœºæ™¯
+        /// </summary>
+        void LoadArena()
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
+                return;
+            }
+            Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
+            PhotonNetwork.LoadLevel("Waiting Room for " + PhotonNetwork.CurrentRoom.PlayerCount);
+        }
+
+        #endregion
+
     }
 }
