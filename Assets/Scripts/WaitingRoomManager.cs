@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
@@ -30,10 +32,18 @@ namespace Com.GroupCharlie.FPS
             }
         }
 
-        // Update is called once per frame
-        void Update()
-        {
+        #endregion
 
+        #region Public Methods
+
+        public void LoadLevel_1()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                Debug.LogFormat("LoadLevel_1 IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before LoadLevel_1
+
+                PhotonNetwork.LoadLevel("Level_1");
+            }
         }
 
         #endregion
