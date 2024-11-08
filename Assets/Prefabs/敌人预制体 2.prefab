@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a9afc2695a2ee87418a83ada89222801, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9afc2695a2ee87418a83ada89222801, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9afc2695a2ee87418a83ada89222801, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9afc2695a2ee87418a83ada89222801, type: 3}
       propertyPath: m_LocalPosition.x
       value: -149.03474
       objectReference: {fileID: 0}
@@ -48,9 +60,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9afc2695a2ee87418a83ada89222801, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a9afc2695a2ee87418a83ada89222801, type: 3}
       propertyPath: m_Name
-      value: "\u654C\u4EBA\u9884\u5236\u4F53"
+      value: "\u654C\u4EBA\u9884\u5236\u4F53 2"
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: a9afc2695a2ee87418a83ada89222801, type: 3}
       propertyPath: m_Controller
@@ -59,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 7534238528617047327, guid: a9afc2695a2ee87418a83ada89222801, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: fd189e4da5c469d448a301c185e5ca96, type: 2}
+      objectReference: {fileID: 2100000, guid: c4dda321526e8d443821470f6ccca182, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -98,7 +114,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -127,7 +143,7 @@ MonoBehaviour:
   attackRadius: 2
   anim: {fileID: 5450250214515158982}
   timeBtwAttack: 2.5
-  attackDamage: 10
+  attackDamage: 20
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -143,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85fbbfb9652e4044923651ffc847db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 200
 --- !u!1 &1699186445922615616 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 962927036086407959, guid: a9afc2695a2ee87418a83ada89222801, type: 3}

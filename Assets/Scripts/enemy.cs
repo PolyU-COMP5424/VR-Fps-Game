@@ -12,6 +12,9 @@ public class enemy : MonoBehaviour
     public int maxEnemies;                    // 敌人最大数量
     private int currentEnemyCount = 0;        // 当前场景中的敌人数量
 
+    public GameObject enemies2;               // 第二种敌人 Prefab
+    private int enemiesSpawnedCount = 0;      // 已生成的普通敌人数量
+
     private void Start()
     {
         // 订阅 EnemyDamage 中的 OnEnemyDeath 事件
@@ -29,12 +32,25 @@ public class enemy : MonoBehaviour
             // 仅当当前敌人数少于上限时生成敌人
             if (currentEnemyCount < maxEnemies)
             {
+
+                GameObject enemyToSpawn;
+
+                // 每生成 10 个 enemies，就生成 1 个 enemies2
+                if (enemiesSpawnedCount % 10 == 0 && enemiesSpawnedCount > 0)
+                {
+                    enemyToSpawn = enemies2; // 生成 enemies2
+                }
+                else
+                {
+                    enemyToSpawn = enemies; // 生成默认的 enemies
+                }
                 // 随机选择一个点生成敌人
-                GameObject e = Instantiate(enemies.gameObject, points[Random.Range(0, points.Count)].transform.position, Quaternion.identity);
+                GameObject e = Instantiate(enemyToSpawn , points[Random.Range(0, points.Count)].transform.position, Quaternion.identity);
                 e.transform.SetParent(enemiesclone.transform);
 
                 // 增加当前敌人数量
                 currentEnemyCount++;
+                enemiesSpawnedCount++;
             }
         }
     }
