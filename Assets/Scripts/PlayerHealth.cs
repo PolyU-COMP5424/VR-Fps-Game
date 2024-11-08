@@ -5,25 +5,31 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public GameObject camera;
+    public Healthbar healthbar;
 
-    public int hp = 100;
+    public int maxHp = 100;
+    public int currentHp;
     void Start()
     {
-        
+        currentHp = maxHp;
+        healthbar.SetMaxHealth(maxHp);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
     public void underacctick(int d) 
     { 
-        hp-=d;
-        if (hp < 0){
+        currentHp-=d;
+
+        healthbar.SetHealth(currentHp);
+        if (currentHp < 0){
             camera.SetActive(true);
             Destroy(gameObject);
         };
-        Debug.Log(hp);
+        Debug.Log(currentHp);
     }
 }
