@@ -1365,6 +1365,10 @@ MonoBehaviour:
   healthbar: {fileID: 1698372812}
   maxHp: 100
   currentHp: 0
+  healCooldown: 0
+  heal:
+    actionPath: 
+    needsReinit: 0
 --- !u!1001 &1847723454
 PrefabInstance:
   m_ObjectHideFlags: 0
