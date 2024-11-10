@@ -1365,7 +1365,7 @@ MonoBehaviour:
   healthbar: {fileID: 1698372812}
   maxHp: 100
   currentHp: 0
-  healCooldown: 0
+  healCooldown: 5
   heal:
     actionPath: 
     needsReinit: 0
@@ -1766,13 +1766,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxBullets: 30000
-  currentBullets: 30000
-  fireCooldown: 0
+  currentBullets: 30
+  maxBulletsInClip: 30
+  currentBulletsInClip: 30
+  fireCooldown: 0.2
   gunMuzzle: {fileID: 242246432}
   audioSource: {fileID: 1896216226}
   audioSource1: {fileID: 1896216225}
   Special_effects_of_bullet_hitting: {fileID: 1000012142692022, guid: a475880e7da0e9548aa05cb7933752cd, type: 3}
   muzzle_flash: {fileID: 160582, guid: 4efe9f246d71691449ce297107cedc62, type: 3}
+  fireRateMultiplier: 0.5
+  additionalBulletsInClip: 15
+  FireSpeedUp:
+    actionPath: 
+    needsReinit: 0
 --- !u!114 &1896216228
 MonoBehaviour:
   m_ObjectHideFlags: 0
