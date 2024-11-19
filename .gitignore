@@ -60,6 +60,7 @@ ExportedObj/
 *.opendb
 *.VC.db
 *.VC.VC.opendb
+*.dwlt
 
 # Mac OS X
 .DS_Store
