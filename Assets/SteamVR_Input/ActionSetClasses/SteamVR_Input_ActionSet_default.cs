@@ -121,6 +121,22 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean firespeed
+        {
+            get
+            {
+                return SteamVR_Actions.default_firespeed;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean heal
+        {
+            get
+            {
+                return SteamVR_Actions.default_heal;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

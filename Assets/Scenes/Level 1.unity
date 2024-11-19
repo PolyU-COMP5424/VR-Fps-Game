@@ -720,6 +720,7 @@ GameObject:
   - component: {fileID: 1015652851}
   - component: {fileID: 1015652850}
   - component: {fileID: 1015652849}
+  - component: {fileID: 1015652853}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -766,7 +767,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1015652851
 Canvas:
   m_ObjectHideFlags: 0
@@ -776,8 +777,8 @@ Canvas:
   m_GameObject: {fileID: 1015652848}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 2
+  m_Camera: {fileID: 1954677240}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -797,19 +798,34 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015652848}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.4499998}
+  m_LocalScale: {x: 0.011237884, y: 0.011237884, z: 0.011237884}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1698372810}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1807212170}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -2.6, y: 2.1499996}
+  m_SizeDelta: {x: 173.3698, y: 45.6913}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1015652853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015652848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e862224b285a146921fd30726e4765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1044210965}
+  offset: {x: -1.64, y: 1.48, z: 2}
+  healthBarCanvas: {fileID: 1015652851}
 --- !u!1 &1026794919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1246,7 +1262,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 94.1, y: -23.7}
+  m_AnchoredPosition: {x: 94.100006, y: -23.699997}
   m_SizeDelta: {x: 52, y: 9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1698372811
@@ -1369,6 +1385,11 @@ MonoBehaviour:
   heal:
     actionPath: 
     needsReinit: 0
+--- !u!4 &1807212170 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3182261104574984559, guid: 8f43a06b2ff65c049a5853ae1c3298f6, type: 3}
+  m_PrefabInstance: {fileID: 4418953290924077355}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1847723454
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2178,6 +2199,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f01077d6ec6b3684f8af762d25ad8eba, type: 3}
   m_PrefabInstance: {fileID: 1847723454}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &1954677240 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3182261104573389429, guid: 8f43a06b2ff65c049a5853ae1c3298f6, type: 3}
+  m_PrefabInstance: {fileID: 4418953290924077355}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1957751809 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5870858102690965209, guid: ec1f583641147ad40b1ef70f7d138857, type: 3}
@@ -2341,6 +2367,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 136296520278147243, guid: 8f43a06b2ff65c049a5853ae1c3298f6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3182261104563974029, guid: 8f43a06b2ff65c049a5853ae1c3298f6, type: 3}
       propertyPath: head
       value: 
@@ -2407,7 +2437,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3182261104574984559, guid: 8f43a06b2ff65c049a5853ae1c3298f6, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 1015652852}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3182261104575021335, guid: 8f43a06b2ff65c049a5853ae1c3298f6, type: 3}
       insertIndex: -1
@@ -2545,4 +2578,3 @@ SceneRoots:
   - {fileID: 1187554176}
   - {fileID: 4418953290924077355}
   - {fileID: 435088384}
-  - {fileID: 1015652852}
