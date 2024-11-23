@@ -402,7 +402,7 @@ MonoBehaviour:
   - {fileID: 474925830}
   enemies: {fileID: 1587749532465213190, guid: 319dc6bc036f5a44ca52d9010cf2dbc3, type: 3}
   enemiesclone: {fileID: 1802608678}
-  waittime: 5
+  waittime: 10
   maxEnemies: 11
   enemies2: {fileID: 1587749532465213190, guid: d2a40a7a9b42eeb45a81cf2e3dd30ab5, type: 3}
 --- !u!4 &794018618
